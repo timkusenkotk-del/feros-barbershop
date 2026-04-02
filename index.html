@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fero's Barbershop Roth</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: Georgia, serif; background: #0a0a0a; color: #f0e6d3; }
+nav { position:fixed; top:0; width:100%; z-index:100; background:rgba(10,10,10,0.96); border-bottom:1px solid #8B6914; padding:14px 40px; display:flex; justify-content:space-between; align-items:center; }
+.nav-logo { font-size:12px; letter-spacing:4px; color:#C9A84C; text-transform:uppercase; }
+.nav-links { display:flex; gap:28px; list-style:none; }
+.nav-links a { color:#aaa; text-decoration:none; font-size:11px; letter-spacing:2px; text-transform:uppercase; }
+.nav-links a:hover { color:#C9A84C; }
+.hero { min-height:100vh; display:flex; align-items:center; justify-content:center; background:#0a0a0a; padding-top:80px; }
+.hero-content { text-align:center; padding:40px 24px; }
+.hero-badge { display:inline-block; border:1px solid rgba(201,168,76,0.5); color:#C9A84C; font-size:10px; letter-spacing:5px; text-transform:uppercase; padding:7px 22px; margin-bottom:36px; }
+.logo-circle { width:180px; height:180px; border-radius:50%; border:2px solid #C9A84C; margin:0 auto 32px; overflow:hidden; background:#fff; }
+.logo-circle img { width:100%; height:100%; object-fit:cover; }
+.hero h1 { font-size:clamp(32px,6vw,66px); font-weight:400; letter-spacing:8px; text-transform:uppercase; color:#f0e6d3; margin-bottom:6px; line-height:1.1; }
+.hero-tagline { font-size:11px; letter-spacing:7px; color:#C9A84C; text-transform:uppercase; margin-bottom:40px; }
+.gold-line { width:70px; height:1px; background:#C9A84C; margin:0 auto 40px; }
+.hero-meta { display:flex; gap:36px; justify-content:center; flex-wrap:wrap; margin-bottom:44px; }
+.meta-item .lbl { font-size:9px; letter-spacing:3px; color:#C9A84C; text-transform:uppercase; margin-bottom:5px; }
+.meta-item .val { font-size:13px; color:#ccc; }
+.btn-gold { display:inline-block; background:#C9A84C; color:#0a0a0a; padding:15px 44px; font-size:10px; letter-spacing:4px; text-transform:uppercase; font-weight:bold; text-decoration:none; }
+.btn-outline { display:inline-block; border:1px solid #C9A84C; color:#C9A84C; padding:14px 36px; font-size:10px; letter-spacing:4px; text-transform:uppercase; text-decoration:none; margin-left:16px; }
+section { padding:90px 32px; }
+.sec-label { font-size:9px; letter-spacing:5px; color:#C9A84C; text-transform:uppercase; text-align:center; margin-bottom:14px; }
+.sec-title { font-size:clamp(24px,4vw,44px); text-align:center; font-weight:400; letter-spacing:4px; text-transform:uppercase; margin-bottom:14px; }
+.sec-line { width:50px; height:1px; background:#C9A84C; margin:0 auto 56px; }
+.gallery { background:#070707; }
+.gallery-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); grid-template-rows:240px 240px; gap:4px; max-width:900px; margin:0 auto; }
+.g-item { overflow:hidden; background:#111; }
+.g-item img { width:100%; height:100%; object-fit:cover; display:block; transition:transform 0.5s; }
+.g-item:hover img { transform:scale(1.06); }
+.g-item.big { grid-row:span 2; }
+.services { background:#0a0a0a; }
+.svc-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:2px; max-width:860px; margin:0 auto; }
+.svc-row { padding:24px 28px; border:1px solid #181818; display:flex; justify-content:space-between; align-items:center; }
+.svc-row:hover { border-color:#C9A84C; background:rgba(201,168,76,0.04); }
+.svc-name { font-size:14px; color:#ddd; }
+.svc-sub { font-size:11px; color:#555; margin-top:3px; }
+.svc-price { font-size:22px; color:#C9A84C; }
+.svc-special { grid-column:1/-1; border:1px solid #C9A84C; background:rgba(201,168,76,0.05); padding:28px 32px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; }
+.svc-special .svc-name { font-size:16px; color:#C9A84C; letter-spacing:2px; }
+.svc-special .svc-price { font-size:34px; }
+.reviews { background:#070707; }
+.rev-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(270px,1fr)); gap:20px; max-width:940px; margin:0 auto; }
+.rev-card { padding:28px; border:1px solid #181818; position:relative; }
+.rev-card::before { content:'"'; position:absolute; top:12px; left:20px; font-size:56px; color:rgba(201,168,76,0.15); line-height:1; }
+.rev-stars { color:#C9A84C; font-size:13px; margin-bottom:14px; }
+.rev-text { font-size:13px; line-height:1.9; color:#aaa; margin-bottom:18px; padding-top:16px; }
+.rev-name { font-size:10px; letter-spacing:2px; color:#C9A84C; text-transform:uppercase; }
+.rev-date { font-size:10px; color:#444; margin-top:3px; }
+.team { background:#0a0a0a; }
+.team-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:4px; max-width:640px; margin:0 auto; }
+.team-card { position:relative; overflow:hidden; height:380px; }
+.team-card img { width:100%; height:100%; object-fit:cover; }
+.team-overlay { position:absolute; bottom:0; left:0; right:0; padding:24px; background:linear-gradient(transparent,rgba(0,0,0,0.88)); }
+.team-name { font-size:15px; letter-spacing:3px; text-transform:uppercase; color:#f0e6d3; }
+.team-role { font-size:10px; color:#C9A84C; letter-spacing:3px; margin-top:4px; }
+.contact { background:#070707; }
+.contact-wrap { max-width:680px; margin:0 auto; text-align:center; }
+.contact-cols { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:36px; margin-bottom:48px; }
+.cc-label { font-size:9px; letter-spacing:3px; color:#C9A84C; text-transform:uppercase; margin-bottom:10px; }
+.cc-val { font-size:14px; color:#ccc; line-height:1.9; }
+.cc-val a { color:#ccc; text-decoration:none; }
+.cc-val a:hover { color:#C9A84C; }
+.map-wrap { border:1px solid #1a1a1a; overflow:hidden; margin-bottom:40px; }
+.social-row { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+footer { background:#050505; border-top:1px solid #151515; padding:28px; text-align:center; }
+footer p { font-size:10px; color:#333; letter-spacing:2px; }
+@media(max-width:600px){ nav { padding:14px 18px; } .nav-links { display:none; } section { padding:64px 18px; } .gallery-grid { grid-template-columns:repeat(2,minmax(0,1fr)); grid-template-rows:180px 180px 180px; } .g-item.big { grid-row:auto; } .hero-meta { gap:18px; } .btn-outline { margin-left:0; margin-top:12px; display:block; text-align:center; } }
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-logo">Fero's Barbershop · Roth</div>
+  <ul class="nav-links">
+    <li><a href="#gallery">Galerie</a></li>
+    <li><a href="#services">Preise</a></li>
+    <li><a href="#reviews">Bewertungen</a></li>
+    <li><a href="#contact">Kontakt</a></li>
+  </ul>
+</nav>
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">Roth, Bayern · Ohne Termin</div>
+    <div class="logo-circle">
+      <img src="https://i.imgur.com/NKv0GCl.jpg" alt="Fero's Barbershop Logo">
+    </div>
+    <h1>Fero's<br>Barbershop</h1>
+    <div class="hero-tagline">Haircut &amp; Shaving · Roth</div>
+    <div class="gold-line"></div>
+    <div class="hero-meta">
+      <div class="meta-item"><div class="lbl">Adresse</div><div class="val">Münchener Str. 12, 91154 Roth</div></div>
+      <div class="meta-item"><div class="lbl">Öffnungszeiten</div><div class="val">Mo–Fr 10–19 · Sa 9–16 Uhr</div></div>
+      <div class="meta-item"><div class="lbl">Ohne Termin</div><div class="val">Walk-In willkommen</div></div>
+    </div>
+    <a href="tel:015125899206" class="btn-gold">Jetzt anrufen</a>
+    <a href="#services" class="btn-outline">Preisliste</a>
+  </div>
+</section>
+<section class="gallery" id="gallery">
+  <div class="sec-label">Unsere Arbeit</div>
+  <div class="sec-title">Galerie</div>
+  <div class="sec-line"></div>
+  <div class="gallery-grid">
+    <div class="g-item big"><img src="https://i.imgur.com/XWsD53Q.jpg" alt="Barbershop"></div>
+    <div class="g-item"><img src="https://i.imgur.com/6OZLsRl.jpg" alt="Haarschnitt"></div>
+    <div class="g-item"><img src="https://i.imgur.com/CsuJxPG.jpg" alt="Fade"></div>
+    <div class="g-item"><img src="https://i.imgur.com/H5LLAvQ.jpg" alt="Schnitt"></div>
+    <div class="g-item"><img src="https://i.imgur.com/iQMHyui.jpg" alt="Ergebnis"></div>
+  </div>
+</section>
+<section class="services" id="services">
+  <div class="sec-label">Leistungen &amp; Preise</div>
+  <div class="sec-title">Preisliste</div>
+  <div class="sec-line"></div>
+  <div class="svc-grid">
+    <div class="svc-row"><div><div class="svc-name">Haarschnitt</div></div><div class="svc-price">20€</div></div>
+    <div class="svc-row"><div><div class="svc-name">Bartrasur</div></div><div class="svc-price">12€</div></div>
+    <div class="svc-row"><div><div class="svc-name">Augenbrauen</div><div class="svc-sub">Fadentechnik</div></div><div class="svc-price">8€</div></div>
+    <div class="svc-row"><div><div class="svc-name">Augenbrauen</div><div class="svc-sub">Mit Messer</div></div><div class="svc-price">5€</div></div>
+    <div class="svc-row"><div><div class="svc-name">Nasenhaar-Entfernung</div><div class="svc-sub">Mit Wachs</div></div><div class="svc-price">5€</div></div>
+    <div class="svc-row"><div><div class="svc-name">Ohrhaar-Entfernung</div><div class="svc-sub">Mit Wachs / Feuer</div></div><div class="svc-price">5€</div></div>
+    <div class="svc-row"><div><div class="svc-name">Gesichtsmaske / Peeling</div></div><div class="svc-price">5€</div></div>
+    <div class="svc-row"><div><div class="svc-name">Kinder-Haarschnitt</div><div class="svc-sub">Bis 13 Jahre</div></div><div class="svc-price">17€</div></div>
+    <div class="svc-row svc-special"><div><div class="svc-name">★ Komplett-Paket ★</div><div class="svc-sub" style="color:#888;font-size:12px;margin-top:6px;">Haarschnitt + Rasur + Nasenhaar + Ohrhaar + Augenbrauen + Gesichtsbehandlung</div></div><div class="svc-price">50€</div></div>
+  </div>
+</section>
+<section class="reviews" id="reviews">
+  <div class="sec-label">Was Kunden sagen</div>
+  <div class="sec-title">Bewertungen</div>
+  <div class="sec-line"></div>
+  <div class="rev-grid">
+    <div class="rev-card"><div class="rev-stars">★★★★★</div><div class="rev-text">Absolut begeistert! Schon beim Betreten merkt man, dass hier mit Leidenschaft und echter Hingabe gearbeitet wird.</div><div class="rev-name">Zufriedener Kunde</div><div class="rev-date">vor 1 Monat · Google</div></div>
+    <div class="rev-card"><div class="rev-stars">★★★★★</div><div class="rev-text">Absolut empfehlenswert! Restlos begeistert von der Qualität der Haarschnitte. Hier versteht man sein Handwerk.</div><div class="rev-name">Lilantha Karunaratne</div><div class="rev-date">vor 1 Monat · Google</div></div>
+    <div class="rev-card"><div class="rev-stars">★★★★★</div><div class="rev-text">Sehr herzlich und immer freundlich. Man wartet nicht lange und alle Mitarbeiter schneiden wirklich gut.</div><div class="rev-name">Nenad Nikolic</div><div class="rev-date">vor 3 Monaten · Google</div></div>
+    <div class="rev-card"><div class="rev-stars">★★★★★</div><div class="rev-text">Super zufrieden mit dem Haarschnitt. Nettes Personal – kann ich nur weiterempfehlen!</div><div class="rev-name">Felix vtv · Local Guide</div><div class="rev-date">vor 2 Monaten · Google</div></div>
+    <div class="rev-card"><div class="rev-stars">★★★★★</div><div class="rev-text">Sehr gut geschnitten, fairer Preis! Auch an die Hygiene wird gedacht. Klare Empfehlung.</div><div class="rev-name">Christian Helin · Local Guide</div><div class="rev-date">vor 1 Monat · Google</div></div>
+    <div class="rev-card"><div class="rev-stars">★★★★★</div><div class="rev-text">Sehr freundliche Jungs und top Qualität. Moderne Frisuren, super Arbeit. Weiter so!</div><div class="rev-name">Metin Karatas</div><div class="rev-date">vor 1 Monat · Google</div></div>
+  </div>
+</section>
+<section class="team" id="team">
+  <div class="sec-label">Das Te
